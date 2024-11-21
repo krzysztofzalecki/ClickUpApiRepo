@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "6db94772-3c3b-4966-99ad-978b9e49d9e9",
+		"name": "ClickUp E2E",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a Space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6bcf584-1417-4892-9f16-03717ddf9780",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('colSpaceId', json.id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c101265c-e9fc-41a6-9a32-af0c96391a73",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"name\": \"Space From E2E Test\",\n  \"multiple_assignees\": true,\n  \"features\": {\n    \"due_dates\": {\n      \"enabled\": true,\n      \"start_date\": false,\n      \"remap_due_dates\": true,\n      \"remap_closed_due_date\": false\n    },\n    \"time_tracking\": {\n      \"enabled\": false\n    },\n    \"tags\": {\n      \"enabled\": true\n    },\n    \"time_estimates\": {\n      \"enabled\": true\n    },\n    \"checklists\": {\n      \"enabled\": true\n    },\n    \"custom_fields\": {\n      \"enabled\": true\n    },\n    \"remap_dependencies\": {\n      \"enabled\": true\n    },\n    \"dependency_warning\": {\n      \"enabled\": true\n    },\n    \"portfolios\": {\n      \"enabled\": true\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "{{url}}/team/{{colteamId}}/space?",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						"{{colteamId}}",
+						"space"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Folderless List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0041f6d7-14bf-45f9-b5e0-f364a4030d47",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('colListId',json.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c4fdab04-846c-4597-9273-9e0087e4f661",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Tasks\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/space/{{colSpaceId}}/list"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "356cb672-b2dc-43d5-a541-caac77f2abcd",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should retur correct name and description\", function () {\r",
+							"    pm.expect(json.name).to.eql('Test Task');\r",
+							"    pm.expect(json.description).to.eql('Test descryption');\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('colTaskId', json.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "acdac075-05e5-4aa2-b180-d9def876b7e0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Task\",\n    \"description\": \"Test descryption\",\n    \"assignees\": [],\n    \"status\": \"to do\",\n    \"priority\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/list/{{colListId}}/task"
+			},
+			"response": []
+		},
+		{
+			"name": "Update task name and description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30529ca9-3d3b-4eaa-a82b-742c614ede8d",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should retur coorect name and description\", function () {\r",
+							"    pm.expect(json.name).to.eql('Test update ClikUp');\r",
+							"    pm.expect(json.description).to.eql('I hope it works');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "15ec470a-846a-4f93-a8f0-fff92da1e740",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test update ClikUp\",\r\n    \"description\": \"I hope it works\",\r\n    \"assignees\": [],\r\n    \"status\": \"to do\",\r\n    \"priority\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/task/{{colTaskId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Close tast",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30529ca9-3d3b-4eaa-a82b-742c614ede8d",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should retur coorect status\", function () {\r",
+							"    pm.expect(json.status.status).to.eql('complete');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "6a5ba1b2-665c-456d-aca8-623a64704c55",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"complete\",\r\n    \"priority\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/task/{{colTaskId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70eb5a6e-d689-4070-839e-857f39b74b4e",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Shuld return epty object\", function () {\r",
+							"    pm.expect(json).to.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "744ea7be-5f5b-4bb0-9ec0-07ec28b41a81",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/space/:space_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"space",
+						":space_id"
+					],
+					"variable": [
+						{
+							"id": "58aa4311-45ad-4372-8a82-cde17bd00ca5",
+							"key": "space_id",
+							"value": "{{colSpaceId}}"
+						}
+					]
+				},
+				"description": "Please paste the previously updated space_id for continuity"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": {
+			"value": "{{token}}",
+			"key": "Authorization"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7d01d0a5-36d4-4ee8-90f0-18e81124c4b9",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c14c3356-18cf-4009-b99a-ce8b68be9051",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "colteamId",
+			"value": "Add you team Id",
+			"type": "string"
+		},
+		{
+			"key": "colSpaceId",
+			"value": ""
+		},
+		{
+			"key": "colListId",
+			"value": ""
+		},
+		{
+			"key": "colTaskId",
+			"value": ""
+		}
+	]
+}
