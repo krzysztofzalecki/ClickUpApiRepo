@@ -119,7 +119,9 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.collectionVariables.set('colListId',json.id);"
+							"pm.test(\"Should retur coorect name and description\", function () {\r",
+							"    pm.expect(json.name).to.eql('New List Name');\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -213,7 +215,8 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Should retur coorect name and description\", function () {\r",
-							"    pm.expect(json.name).to.eql('New List Name');\r",
+							"    pm.expect(json.name).to.eql('Tasks');\r",
+							"    pm.expect(json.description).to.eql('I hope it works');\r",
 							"});"
 						],
 						"type": "text/javascript",
