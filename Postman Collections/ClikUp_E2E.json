@@ -106,7 +106,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete List",
+			"name": "Update List",
 			"event": [
 				{
 					"listen": "test",
@@ -119,30 +119,30 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							""
+							"pm.collectionVariables.set('colListId',json.id);"
 						],
 						"type": "text/javascript",
 						"packages": {}
 					}
 				}
 			],
-			"id": "43207359-df4e-4822-a35b-7a234908e3dc",
+			"id": "b797f176-ae14-4c43-8642-a23d92b14457",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n  \"name\": \"New List Name\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{url}}/list/{{colListId}}"
+				"url": "{{url}}//list/{{colListId}}"
 			},
 			"response": []
 		},
@@ -213,8 +213,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Should retur coorect name and description\", function () {\r",
-							"    pm.expect(json.name).to.eql('Test update ClikUp');\r",
-							"    pm.expect(json.description).to.eql('I hope it works');\r",
+							"    pm.expect(json.name).to.eql('New List Name');\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -282,6 +281,47 @@
 					}
 				},
 				"url": "{{url}}/task/{{colTaskId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0041f6d7-14bf-45f9-b5e0-f364a4030d47",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43207359-df4e-4822-a35b-7a234908e3dc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/list/{{colListId}}"
 			},
 			"response": []
 		},
