@@ -161,7 +161,10 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							""
+							"\r",
+							"pm.test(\"Should retur coorect name and description\", function () {\r",
+							"    pm.expect(json.space.id).to.eql('90122354067');\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -177,7 +180,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"space\": {\r\n        \"id\": \"90122354067\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"space\": {\r\n        \"id\": \"90122354067\",\r\n        \"name\": \"Space 1\",\r\n        \"access\": true\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
