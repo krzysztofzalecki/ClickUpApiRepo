@@ -147,47 +147,6 @@
 			"response": []
 		},
 		{
-			"name": "Delete Not Exist List",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "0041f6d7-14bf-45f9-b5e0-f364a4030d47",
-						"exec": [
-							"const json = pm.response.json();\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.collectionVariables.set('colListId',json.id);"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"id": "2d1b648c-6cd1-4887-a6eb-5ab872a7e96d",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Tasks\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{url}}/list/{list_id}"
-			},
-			"response": []
-		},
-		{
 			"name": "Create a Task",
 			"event": [
 				{
