@@ -149,6 +149,49 @@
 			"response": []
 		},
 		{
+			"name": "Change Spce for List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0041f6d7-14bf-45f9-b5e0-f364a4030d47",
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should retur coorect name and description\", function () {\r",
+							"    pm.expect(json.name).to.eql('New List Name');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "8d0fbf62-4958-4e54-9321-4b6ccf273475",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New List Name\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}//list/{{colListId}}"
+			},
+			"response": []
+		},
+		{
 			"name": "Create a Task",
 			"event": [
 				{
