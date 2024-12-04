@@ -149,7 +149,7 @@
 			"response": []
 		},
 		{
-			"name": "Change Spce for List",
+			"name": "Change Space for List",
 			"event": [
 				{
 					"listen": "test",
@@ -161,10 +161,7 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Should retur coorect name and description\", function () {\r",
-							"    pm.expect(json.name).to.eql('New List Name');\r",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -180,7 +177,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"New List Name\"\r\n}",
+					"raw": "{\r\n    \"space\": {\r\n        \"id\": \"90122354067\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
